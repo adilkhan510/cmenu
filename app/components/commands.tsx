@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { FC, ReactElement } from "react";
 import {
   SiFramer,
   SiTailwindcss,
@@ -82,3 +82,23 @@ export const commands: Command[] = [
     action: () => window.open("https://x.com", "_blank"),
   },
 ];
+
+export const Command: FC<{
+  command: Command;
+}> = ({ command }) => {
+  return (
+    <li className="group">
+      <button
+        className="flex items-center w-full px-4 py-3 text-left transition-colors duration-200 ease-in-out rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-300"
+        onClick={command.action}
+      >
+        <span className="flex items-center justify-center w-8 h-8 text-gray-500 transition-colors duration-200 ease-in-out group-hover:text-blue-600">
+          {command.icon}
+        </span>
+        <span className="ml-3 text-base font-medium text-gray-700 transition-colors duration-200 ease-in-out group-hover:text-gray-900">
+          {command.text}
+        </span>
+      </button>
+    </li>
+  );
+};

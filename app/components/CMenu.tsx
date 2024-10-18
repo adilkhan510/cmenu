@@ -101,7 +101,7 @@ const CMenu: FC = () => {
                 placeholder="search commands ..."
                 type="text"
                 autoFocus
-                className="ml-4 outline-none w-full will-change-auto text-lg"
+                className="ml-4 outline-none w-full will-change-auto text-lg "
                 onChange={(e) => setQuery(e.target.value)}
                 value={query}
               />

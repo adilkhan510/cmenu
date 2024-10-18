@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Command Menu Component
 
-## Getting Started
+This repository contains a React component for a command menu, similar to the command palette found in many modern applications. The component is built using React, Framer Motion for animations, and React Icons for iconography.
+Its a work in progress. 
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Keyboard-driven command menu
+- Search functionality
+- Animated transitions
+- Keyboard navigation (arrow keys and tab)
+- Action execution on command selection
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Component Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The main component is `CMenu`, located in `app/components/CMenu.tsx`. It uses the following key technologies:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- React (with hooks)
+- Framer Motion for animations
+- React Icons for the search icon
 
-## Learn More
+## Usage
 
-To learn more about Next.js, take a look at the following resources:
+To use the CMenu component in your project:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Import the component:
+   ```jsx
+   import CMenu from './path/to/CMenu';
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Add the component to your JSX:
+   ```jsx
+   <CMenu />
+   ```
 
-## Deploy on Vercel
+3. Ensure you have the necessary dependencies installed:
+   - react
+   - framer-motion
+   - react-icons
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Customization
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The component uses a `commands` array imported from `./commands`. You can customize the available commands by modifying this file.
+
+## Keyboard Shortcuts
+
+- `Ctrl+K` or `Cmd+K`: Toggle the command menu
+- `Escape`: Close the command menu
+- `ArrowUp` / `ArrowDown` or `Tab` / `Shift+Tab`: Navigate through commands
+- `Enter`: Execute the selected command
+
+## Styling
+
+The component uses Tailwind CSS classes for styling. Customize the appearance by modifying these classes in the

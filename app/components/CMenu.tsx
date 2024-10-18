@@ -45,7 +45,7 @@ const CMenu: FC = () => {
     (event: KeyboardEvent) => {
       if (event.key == "Enter" && results) {
         event.preventDefault();
-        commands[selected].action();
+        results[selected].action();
       }
     },
     [selected, results]

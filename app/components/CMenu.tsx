@@ -1,16 +1,74 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FiSearch } from "react-icons/fi";
 import { Command, commands } from "./commands";
 
 const CMenu: FC = () => {
   const [query, setQuery] = useState("");
+  const [results, setResults] = useState<Command[] | null>();
+  const [selected, setSelected] = useState(0);
 
-  const filterdCommands = commands.filter((command) =>
-    command.text.toLowerCase().includes(query)
+  const filter = (query: string): Command[] => {
+    return commands.filter((command) => {
+      return command.text.toLowerCase().includes(query);
+    });
+  };
+
+  const navigation = useCallback(
+    (event: KeyboardEvent) => {
+      if (results) {
+        const length = results.length - 1;
+
+        if (
+          event.key === "ArrowUp" ||
+          (event.key === "Tab" && event.shiftKey)
+        ) {
+          event.preventDefault();
+          setSelected(() => (selected === 0 ? 0 : selected - 1));
+        } else if (event.key === "ArrowDown" || event.key === "Tab") {
+          event.preventDefault();
+          setSelected(selected === length ? length : selected + 1);
+        }
+      }
+    },
+    [results, selected]
   );
 
+  const performAction = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key == "Enter" && results) {
+        event.preventDefault();
+        commands[selected].action();
+      }
+    },
+    [selected, results]
+  );
+
+  useEffect(() => {
+    window.addEventListener("keydown", performAction);
+
+    return () => {
+      window.removeEventListener("keydown", performAction);
+    };
+  }, [selected, performAction]);
+
+  useEffect(() => {
+    setSelected(0);
+    if (query) {
+      setResults(filter(query));
+    } else {
+      setResults(null);
+    }
+  }, [query]);
+
+  useEffect(() => {
+    window.addEventListener("keydown", navigation);
+
+    return () => {
+      window.removeEventListener("keydown", navigation);
+    };
+  }, [navigation]);
   return (
     <motion.div
       className="flex items-center justify-center overflow-hidden fixed w-screen h-screen select-none bg-[#e7e7e7e5]"
@@ -42,7 +100,7 @@ const CMenu: FC = () => {
 
         <motion.ul className="flex overflow-y-auto overflow-x-hidden flex-col w-full transition-all will-change-auto max-h-[320px]">
           <AnimatePresence initial={false}>
-            {filterdCommands.map((command, index) => (
+            {results?.map((command, index) => (
               <motion.div
                 key={command.text + index}
                 initial={{ opacity: 0, height: 0 }}
@@ -50,7 +108,11 @@ const CMenu: FC = () => {
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <Command command={command} />
+                <Command
+                  command={command}
+                  onMouseMove={() => setSelected(index)}
+                  selected={index === selected}
+                />
               </motion.div>
             ))}
           </AnimatePresence>

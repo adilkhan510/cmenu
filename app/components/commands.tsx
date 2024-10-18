@@ -1,3 +1,5 @@
+import classNames from "classnames";
+import { motion } from "framer-motion";
 import { FC, ReactElement } from "react";
 import {
   SiFramer,
@@ -85,13 +87,30 @@ export const commands: Command[] = [
 
 export const Command: FC<{
   command: Command;
-}> = ({ command }) => {
+  selected: boolean;
+  onMouseMove: () => void;
+}> = ({ command, selected, onMouseMove }) => {
   return (
-    <li className="group">
+    <li className="group" onMouseMove={onMouseMove}>
       <button
-        className="flex items-center w-full px-4 py-3 text-left transition-colors duration-200 ease-in-out rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-300"
+        className={classNames(
+          "flex items-center w-full px-4 py-3 text-left transition-colors duration-200 ease-in-out rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-300 relative"
+        )}
         onClick={command.action}
       >
+        {selected && (
+          <motion.div
+            layoutId="box"
+            className="bg-[#00000010] absolute w-full h-16"
+            initial={false}
+            aria-hidden="true"
+            transition={{
+              type: "spring",
+              stiffness: 1000,
+              damping: 70,
+            }}
+          />
+        )}
         <span className="flex items-center justify-center w-8 h-8 text-gray-500 transition-colors duration-200 ease-in-out group-hover:text-blue-600">
           {command.icon}
         </span>

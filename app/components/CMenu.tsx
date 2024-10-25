@@ -1,7 +1,6 @@
 "use client";
 import { FC, useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { FiSearch } from "react-icons/fi";
 import { Command, commands } from "./commands";
 
 const CMenu: FC = () => {

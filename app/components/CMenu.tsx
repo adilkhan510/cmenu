@@ -78,36 +78,32 @@ const CMenu: FC = () => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.dialog
-          className="flex items-center justify-center overflow-hidden fixed w-screen h-screen select-none bg-[#e7e7e7e5]"
+        <motion.div
+          className="fixed inset-0 flex flex-col items-center z-50 backdrop-blur bg-black/30 w-screen h-screen overflow-hidden select-none"
           initial={{ opacity: 0 }}
-          animate={{
-            opacity: 1,
-          }}
-          exit={{
-            opacity: 0,
-          }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
           onClick={() => setIsOpen(!isOpen)}
         >
           <motion.div
-            className="w-[640px] will-change-auto relative bg-white rounded-lg shadow-2xl"
-            initial={{ scale: 0.9, opacity: 0 }}
+            className="fixed top-[20%] transition-all will-change-[height] shadow-lg border border-solid rounded-lg bg-white p-4 w-[640px] max-w-[90%]"
+            initial={{ scale: 0.6, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: "spring", damping: 20, stiffness: 300 }}
+            transition={{
+              duration: 0.2,
+            }}
+            onClick={(e) => e.stopPropagation()}
           >
-            <div className="h-16 flex items-center text-xl text-gray-400 border-gray-200 border-b">
-              <FiSearch className="ml-4" />
-              <input
-                placeholder="search commands ..."
-                type="text"
-                autoFocus
-                className="ml-4 outline-none w-full will-change-auto text-lg "
-                onChange={(e) => setQuery(e.target.value)}
-                value={query}
-              />
-            </div>
+            <input
+              placeholder="search commands ..."
+              type="text"
+              autoFocus
+              className="mb-2 outline-none border-b border-gray-200 bg-transparent py-5 px-2.5 w-full text-gray-800 text-lg font-inherit"
+              onChange={(e) => setQuery(e.target.value)}
+              value={query}
+            />
 
-            <motion.ul className="flex overflow-y-auto overflow-x-hidden flex-col w-full transition-all will-change-auto max-h-[320px]">
+            <motion.ul className="flex flex-col transition-all will-change-[height] w-full overflow-x-hidden overflow-y-auto max-h-[320px]">
               <AnimatePresence initial={false}>
                 {results?.map((command, index) => (
                   <motion.div
@@ -116,6 +112,11 @@ const CMenu: FC = () => {
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.2 }}
+                    role="option"
+                    aria-selected={index === selected}
+                    className={`relative cursor-pointer h-12 text-base leading-7 ${
+                      index === selected ? "text-blue-600" : "text-gray-600"
+                    }`}
                   >
                     <Command
                       command={command}
@@ -127,7 +128,7 @@ const CMenu: FC = () => {
               </AnimatePresence>
             </motion.ul>
           </motion.div>
-        </motion.dialog>
+        </motion.div>
       )}
     </AnimatePresence>
   );

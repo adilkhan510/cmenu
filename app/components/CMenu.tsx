@@ -8,6 +8,7 @@ const CMenu: FC = () => {
   const [results, setResults] = useState<Command[] | null>();
   const [selected, setSelected] = useState(0);
   const [isOpen, setIsOpen] = useState(true);
+  console.log(results);
 
   const filter = (query: string): Command[] => {
     return commands.filter((command) => {
@@ -25,10 +26,7 @@ const CMenu: FC = () => {
       }
       if (results) {
         const length = results.length - 1;
-        if (
-          event.key === "ArrowUp" ||
-          (event.key === "Tab" && event.shiftKey)
-        ) {
+        if (event.key === "ArrowUp" || (event.key === "Tab" && event.shiftKey)) {
           event.preventDefault();
           setSelected(() => (selected === 0 ? 0 : selected - 1));
         } else if (event.key === "ArrowDown" || event.key === "Tab") {
@@ -82,8 +80,7 @@ const CMenu: FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onClick={() => setIsOpen(!isOpen)}
-        >
+          onClick={() => setIsOpen(!isOpen)}>
           <motion.div
             className="fixed top-[20%] transition-all will-change-[height] shadow-lg border border-solid rounded-lg bg-white p-4 w-[640px] max-w-[90%]"
             initial={{ scale: 0.6, opacity: 0 }}
@@ -91,8 +88,7 @@ const CMenu: FC = () => {
             transition={{
               duration: 0.2,
             }}
-            onClick={(e) => e.stopPropagation()}
-          >
+            onClick={(e) => e.stopPropagation()}>
             <input
               placeholder="search commands ..."
               type="text"
@@ -115,8 +111,7 @@ const CMenu: FC = () => {
                     aria-selected={index === selected}
                     className={`relative cursor-pointer h-12 text-base leading-7 ${
                       index === selected ? "text-blue-600" : "text-gray-600"
-                    }`}
-                  >
+                    }`}>
                     <Command
                       command={command}
                       onMouseMove={() => setSelected(index)}

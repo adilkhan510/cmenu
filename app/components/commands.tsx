@@ -96,8 +96,7 @@ export const Command: FC<{
         className={classNames(
           "flex items-center w-full px-4 py-3 text-left transition-colors duration-200 ease-in-out rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-300 relative"
         )}
-        onClick={command.action}
-      >
+        onClick={command.action}>
         {selected && (
           <motion.div
             layoutId="box"

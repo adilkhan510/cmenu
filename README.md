@@ -1,7 +1,7 @@
 # Command Menu Component
 
 This repository contains a React component for a command menu, similar to the command palette found in many modern applications. The component is built using React, Framer Motion for animations, and React Icons for iconography.
-Its a work in progress. 
+Its a work in progress.
 
 ## Features
 
@@ -24,11 +24,13 @@ The main component is `CMenu`, located in `app/components/CMenu.tsx`. It uses th
 To use the CMenu component in your project:
 
 1. Import the component:
+
    ```jsx
-   import CMenu from './path/to/CMenu';
+   import CMenu from "./path/to/CMenu";
    ```
 
 2. Add the component to your JSX:
+
    ```jsx
    <CMenu />
    ```

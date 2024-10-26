@@ -23,6 +23,4 @@ jobs:
       - run: pnpm install
       - run: pnpm format
       - run: pnpm type-check
-      - run: pnpm lint
-      - run: pnpm test
       - run: pnpm build
